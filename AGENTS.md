@@ -1,0 +1,50 @@
+# Splina: instructions for contributors and agents
+
+Splina is the vector geometry library of the AMAGE UI ecosystem, implemented in
+**Bend 2**: paths, curves, transforms, and an explicit SVG subset, prepared for
+rasterization by Dithra and composition by Chromi. Read the README for current
+capabilities and limits; a roadmap item (arcs, strokes, clipping, general SVG)
+is not implemented merely because it appears in the project scope.
+
+## Implementation
+
+- Implement library logic in Bend 2, rather than wrapping an equivalent SVG or
+  vector engine written in another language.
+- The official Bend compiler/runtime, OS APIs, and drivers remain external
+  dependencies. Splina needs no native bridge.
+- Before writing Bend, run `bend version` and read `bend guide` from the installed
+  toolchain. Verify available syntax/effects instead of assuming old examples work.
+- `path.bend` is shared with Runika and Dithra as `../Splina/path.bend`. Keep its
+  path and types stable, or update the dependent libraries in the same change.
+- Unsupported SVG features must be rejected with an error, never silently
+  ignored. Do not pre-convert fixtures to hide a limit.
+- Keep source, comments, documentation, and commit messages in English.
+
+## Linux first
+
+The initial goal is excellent behavior on Ian's actual Linux development machine:
+correctness, stability, measured performance, and a finished user experience.
+Inspect the effective environment before choosing integrations.
+
+Build compatibility layers as the project progresses, after visible, well-made
+Linux results. Do not let speculative Windows or macOS abstractions delay local
+quality. Introduce abstractions from concrete needs.
+
+## Working practice
+
+- Preserve existing work and keep the library's boundary clear: flattening and
+  rasterization belong to Dithra, composition to Chromi.
+- Favor simple, maintainable code. Pursue fast, polished behavior with evidence.
+- Run the native checks after changes. Validate affected rendering in a real
+  window when visible output changes, compare with an independent reference
+  where possible, then close the window.
+- Compilation is not visual proof. Runtime checks are not proofs of the entire
+  system. State partial support and unverified behavior explicitly.
+- Build sequentially. Do not impose virtual-address limits on the Bend compiler
+  or runtime, or suppress crash reporting. Large structural matches over
+  strings have made compilation expensive here; see
+  [docs/history.md](docs/history.md). Investigate failures before retrying.
+- Keep generated binaries, logs, crash dumps, credentials, and machine-specific
+  evidence out of Git. Stage explicit paths and preserve concurrent changes.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for validation commands.
