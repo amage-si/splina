@@ -9,7 +9,7 @@ filled shapes. The parser is written in Bend: no browser, resvg/usvg, Skia,
 or hand-written native code. The same path type is shared with Runika (font
 outlines) and Dithra (rasterization).
 
-**Status:** early implementation, tested with **Bend 2.0.35** on Linux
+**Status:** early implementation, tested with **Bend 2.0.37** on Linux
 (Hyprland with XWayland). The first priority is a polished, reliable
 experience on the development Linux machine. Compatibility layers will follow
 proven progress.
